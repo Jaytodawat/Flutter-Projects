@@ -1,0 +1,64 @@
+*To hide the banner shown as Debug Mode, do following in MaterialApp() widget
+    debugShowCheckedModeBanner: false
+
+*SafeArea() is a widget use to add padding
+-if your app’s widgets are overlaying any of the system’s features like notches, status bar,
+camera holes, or any other such features, then SafeArea would add padding around the app,
+as required.
+
+
+*Container is single child widget
+    - Containers with no children try to be as big as possible
+    - Containers with children size themselves to their children
+
+    1.margins is done for aligning container widget
+        margins: EdgeInsets.<fun>
+    2.padding is done for aligning the child widget inside the container
+        padding: EdgeInsets.<fun>
+
+
+*For adding multiple children, column & rows are used.
+    Column(children: [Container(), Container(), ...,]
+
+    -When column is created, it takes up the all the space below the container() widget
+     to shrink up the column to size of all children, do following
+        mainAxisSize: MainAxisSize.min
+
+    -verticalDirection: VerticalDirection.up => from bottom to up
+    -verticalDirection: VerticalDirection.down => default
+
+    mainAxisAlignment : MainAxisAlignment.<fun> => for aligning the widgets inside the
+                                                   column in vertical axis
+
+    crossAxisAlignment : CrossAxisAlignment.<fun> => for aligning the widgets inside the
+                                                     column in horizontal axis
+
+    -width : double.infinity => widget expand to width of screen size
+
+    *SizedBox() widget is used to add spacing between two container/ widget
+
+
+* style: TextStyle() => used for styling text inside Text() widget
+    Text(
+        'text',
+        style: TextStyle(
+            fontFamily: <fontfamily>,
+            fontSize: ,
+            fontWeight:<boldness>,
+            color: ,
+        ),
+    )
+
+* Card() is like a Container() widget, but it has rounded corners and shadow effect
+- Card doesn't have padding property
+- Hence we use Padding() class as parent of Card() class
+
+*ListTile() is widget to add leading or trailing icon with text and subtitle in Card or Row as a child widget
+    - ListTile(
+        leading: <leading icon>,
+        title: <text to be added using Text(),
+        subtitle: <text to be added below the title>,
+        trailing: <icon after title>,
+     )
+
+*Divider() => A thin horizontal line, with padding on either side.
