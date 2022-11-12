@@ -32,15 +32,26 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scorekeeper = [
+    const Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    const Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         const Expanded(
-          flex: 7,
+          flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10 .0),
+            padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
                 'This is where the question text will go.',
@@ -53,50 +64,61 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        const SizedBox(
-          height: 20.0,
-        ),
         Expanded(
           flex: 1,
-          child: TextButton(
-            style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.green),
-            ),
-            onPressed: () {
-              //print('Hello');
-            },
-            child: const Text(
-              'True',
-              style: TextStyle(
-                color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+            child: TextButton(
+              onPressed: () {
+                setState(() {
+                  scorekeeper.add(
+                    const Icon(
+                      Icons.check,
+                      color: Colors.green,
+                    ),
+                  );
+                });
+                //print('Hello');
+              },
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.green),
+              ),
+              child: const Text(
+                'True',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 20.0,
-        ),
         Expanded(
           flex: 1,
-          child: TextButton(
-            style: const ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Colors.red),
-            ),
-            onPressed: () {
-              //print('Hello');
-            },
-            child: const Text(
-              'False',
-              style: TextStyle(
-                color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+            child: TextButton(
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.red),
+              ),
+              onPressed: () {
+                //print('Hello');
+              },
+              child: const Text(
+                'False',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 20.0,
+        Row(
+          children: scorekeeper,
         ),
       ],
     );
   }
 }
+
+//TODO:To add message box when the icons over limit the size of row.
+//TODO:To show overall result page after quiz over
