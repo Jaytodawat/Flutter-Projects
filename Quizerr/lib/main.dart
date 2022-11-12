@@ -32,32 +32,35 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  List<Icon> scorekeeper = [
-    const Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
-    const Icon(
-      Icons.check,
-      color: Colors.green,
-    ),
+  List<Icon> scorekeeper = [];
+  List<String> questions = [
+    'India are the only country to win the 20 overs, the 50 overs and 60 overs World Cup.',
+    'The first cricket World Cup was held in 1976.',
+    'Australia has won the World Cup 6 times.',
+    'Clive Lloyd of the West Indies is the only captain to win the World Cup twice.',
+    'The 2019 World Cup is the 5th time that England have hosted.',
+    'To this day (30 May 2019) only 1 bowler has reached 100 mph.'
   ];
+  List<bool> answers = [true, false, false, false, true, true];
+  int questionnumber = 0;
+  int answernumber = 0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const Expanded(
+        Expanded(
           flex: 5,
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                questions[questionnumber],
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20.0,
+                style: const TextStyle(
+                  fontSize: 25.0,
                   color: Colors.white,
                 ),
               ),
@@ -70,14 +73,31 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
             child: TextButton(
               onPressed: () {
-                setState(() {
-                  scorekeeper.add(
-                    const Icon(
-                      Icons.check,
-                      color: Colors.green,
-                    ),
-                  );
-                });
+                IconData icon =
+                    answers[answernumber] ? Icons.check : Icons.close;
+                Color c = (icon == Icons.check) ? Colors.green : Colors.red;
+                if (questionnumber != questions.length - 1) {
+                  setState(() {
+                    questionnumber++;
+                    answernumber++;
+                    scorekeeper.add(
+                      Icon(
+                        icon,
+                        color: c,
+                      ),
+                    );
+                  });
+                } else if (scorekeeper.length != questions.length) {
+                  setState(() {
+                    scorekeeper.add(
+                      Icon(
+                        icon,
+                        color: c,
+                      ),
+                    );
+                  });
+                }
+
                 //print('Hello');
               },
               style: const ButtonStyle(
@@ -101,6 +121,30 @@ class _QuizPageState extends State<QuizPage> {
                 backgroundColor: MaterialStatePropertyAll(Colors.red),
               ),
               onPressed: () {
+                IconData icon =
+                    !answers[answernumber] ? Icons.check : Icons.close;
+                Color c = (icon == Icons.check) ? Colors.green : Colors.red;
+                if (questionnumber != questions.length - 1) {
+                  setState(() {
+                    questionnumber++;
+                    answernumber++;
+                    scorekeeper.add(
+                      Icon(
+                        icon,
+                        color: c,
+                      ),
+                    );
+                  });
+                } else if (scorekeeper.length != questions.length) {
+                  setState(() {
+                    scorekeeper.add(
+                      Icon(
+                        icon,
+                        color: c,
+                      ),
+                    );
+                  });
+                }
                 //print('Hello');
               },
               child: const Text(
