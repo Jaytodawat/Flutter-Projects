@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'question.dart';
 
 void main() {
   runApp(const Quizzler());
@@ -33,17 +34,25 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   List<Icon> scorekeeper = [];
-  List<String> questions = [
-    'India are the only country to win the 20 overs, the 50 overs and 60 overs World Cup.',
-    'The first cricket World Cup was held in 1976.',
-    'Australia has won the World Cup 6 times.',
-    'Clive Lloyd of the West Indies is the only captain to win the World Cup twice.',
-    'The 2019 World Cup is the 5th time that England have hosted.',
-    'To this day (30 May 2019) only 1 bowler has reached 100 mph.'
-  ];
-  List<bool> answers = [true, false, false, false, true, true];
+  // List<String> questions = [
+  //   'India are the only country to win the 20 overs, the 50 overs and 60 overs World Cup.',
+  //   'The first cricket World Cup was held in 1976.',
+  //   'Australia has won the World Cup 6 times.',
+  //   'Clive Lloyd of the West Indies is the only captain to win the World Cup twice.',
+  //   'The 2019 World Cup is the 5th time that England have hosted.',
+  //   'To this day (30 May 2019) only 1 bowler has reached 100 mph.'
+  // ];
+  // List<bool> answers = [true, false, false, false, true, true];
   int questionnumber = 0;
-  int answernumber = 0;
+  //int answernumber = 0;
+
+  List<Question> questionBank = [
+    Question(
+        q: 'India are the only country to win the 20 overs, the 50 overs and 60 overs World Cup.',
+        a: true),
+    Question(q: 'The first cricket World Cup was held in 1976.', a: false),
+    Question(q: 'Australia has won the World Cup 6 times.', a: false)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +66,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                questions[questionnumber],
+                questionBank[questionnumber].questionText,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -73,13 +82,13 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
             child: TextButton(
               onPressed: () {
-                IconData icon =
-                    answers[answernumber] ? Icons.check : Icons.close;
+                IconData icon = questionBank[questionnumber].questionAnswer
+                    ? Icons.check
+                    : Icons.close;
                 Color c = (icon == Icons.check) ? Colors.green : Colors.red;
-                if (questionnumber != questions.length - 1) {
+                if (questionnumber != questionBank.length - 1) {
                   setState(() {
                     questionnumber++;
-                    answernumber++;
                     scorekeeper.add(
                       Icon(
                         icon,
@@ -87,7 +96,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   });
-                } else if (scorekeeper.length != questions.length) {
+                } else if (scorekeeper.length != questionBank.length) {
                   setState(() {
                     scorekeeper.add(
                       Icon(
@@ -121,13 +130,13 @@ class _QuizPageState extends State<QuizPage> {
                 backgroundColor: MaterialStatePropertyAll(Colors.red),
               ),
               onPressed: () {
-                IconData icon =
-                    !answers[answernumber] ? Icons.check : Icons.close;
+                IconData icon = !questionBank[questionnumber].questionAnswer
+                    ? Icons.check
+                    : Icons.close;
                 Color c = (icon == Icons.check) ? Colors.green : Colors.red;
-                if (questionnumber != questions.length - 1) {
+                if (questionnumber != questionBank.length - 1) {
                   setState(() {
                     questionnumber++;
-                    answernumber++;
                     scorekeeper.add(
                       Icon(
                         icon,
@@ -135,7 +144,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   });
-                } else if (scorekeeper.length != questions.length) {
+                } else if (scorekeeper.length != questionBank.length) {
                   setState(() {
                     scorekeeper.add(
                       Icon(
