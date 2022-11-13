@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'quiz_brain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -35,9 +36,32 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  void reset() {
+    quizBrain.reset();
+    scorekeeper = [];
+  }
+
   List<Icon> scorekeeper = [];
 
-  int questionnumber = 0;
+  Future<bool?> showAlert() {
+    return Alert(
+        context: context,
+        type: AlertType.success,
+        title: 'Quiz is ended!',
+        buttons: [
+          DialogButton(
+              child: const Text(
+                'Restart',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+              onPressed: () {
+                setState(() {
+                  Navigator.pop(context);
+                  reset();
+                });
+              })
+        ]).show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +75,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: Text(
-                quizBrain.questionBank[questionnumber].questionText,
+                quizBrain.getQuestionText(quizBrain.getquestionnumber()),
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontSize: 25.0,
@@ -68,13 +92,14 @@ class _QuizPageState extends State<QuizPage> {
             child: TextButton(
               onPressed: () {
                 IconData icon =
-                    quizBrain.questionBank[questionnumber].questionAnswer
+                    quizBrain.getQuestionAnswer(quizBrain.getquestionnumber())
                         ? Icons.check
                         : Icons.close;
                 Color c = (icon == Icons.check) ? Colors.green : Colors.red;
-                if (questionnumber != quizBrain.questionBank.length - 1) {
+                if (quizBrain.getquestionnumber() !=
+                    quizBrain.getLength() - 1) {
                   setState(() {
-                    questionnumber++;
+                    quizBrain.incquestion();
                     scorekeeper.add(
                       Icon(
                         icon,
@@ -82,8 +107,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   });
-                } else if (scorekeeper.length !=
-                    quizBrain.questionBank.length) {
+                } else if (scorekeeper.length != quizBrain.getLength()) {
                   setState(() {
                     scorekeeper.add(
                       Icon(
@@ -91,6 +115,7 @@ class _QuizPageState extends State<QuizPage> {
                         color: c,
                       ),
                     );
+                    showAlert();
                   });
                 }
 
@@ -118,13 +143,14 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 IconData icon =
-                    !quizBrain.questionBank[questionnumber].questionAnswer
+                    !quizBrain.getQuestionAnswer(quizBrain.getquestionnumber())
                         ? Icons.check
                         : Icons.close;
                 Color c = (icon == Icons.check) ? Colors.green : Colors.red;
-                if (questionnumber != quizBrain.questionBank.length - 1) {
+                if (quizBrain.getquestionnumber() !=
+                    quizBrain.getLength() - 1) {
                   setState(() {
-                    questionnumber++;
+                    quizBrain.incquestion();
                     scorekeeper.add(
                       Icon(
                         icon,
@@ -132,8 +158,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     );
                   });
-                } else if (scorekeeper.length !=
-                    quizBrain.questionBank.length) {
+                } else if (scorekeeper.length != quizBrain.getLength()) {
                   setState(() {
                     scorekeeper.add(
                       Icon(
@@ -141,6 +166,7 @@ class _QuizPageState extends State<QuizPage> {
                         color: c,
                       ),
                     );
+                    showAlert();
                   });
                 }
                 //print('Hello');
