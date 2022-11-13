@@ -43,7 +43,7 @@ class _QuizPageState extends State<QuizPage> {
 
   List<Icon> scorekeeper = [];
 
-  Future<bool?> showAlert() {
+  showAlert() {
     return Alert(
         context: context,
         type: AlertType.success,
