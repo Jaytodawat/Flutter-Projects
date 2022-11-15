@@ -23,28 +23,28 @@ class _InputPageState extends State<InputPage> {
         children: [
           Expanded(
             child: Row(
-              children: const [
+              children: [
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(const Color(0xFF1D1E33)),
                 ),
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(const Color(0xFF1D1E33)),
                 ),
               ],
             ),
           ),
-          const Expanded(
-            child: ReusableCard(),
+          Expanded(
+            child: ReusableCard(const Color(0xFF1D1E33)),
           ),
           Expanded(
             flex: 1,
             child: Row(
-              children: const [
+              children: [
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(const Color(0xFF1D1E33)),
                 ),
                 Expanded(
-                  child: ReusableCard(),
+                  child: ReusableCard(const Color(0xFF1D1E33)),
                 ),
               ],
             ),
@@ -56,16 +56,23 @@ class _InputPageState extends State<InputPage> {
 }
 
 class ReusableCard extends StatelessWidget {
-  const ReusableCard({Key? key}) : super(key: key);
+  const ReusableCard(this.colour, {super.key});
 
+  final Color
+      colour; //final keyword added to make colour immutable i.e it can not be changed once assigned.
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1E33),
+        color: colour,
         borderRadius: BorderRadius.circular(10.0),
       ),
     );
   }
 }
+
+//final vs const
+//1. Both final and const variables once assigned can't reassigned.
+//2.But const variable can't be assigned at run time but final can.
+//3.const variables can't be accessed at run time but final can.
