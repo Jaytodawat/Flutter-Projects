@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'icon_content.dart';
+import 'reusable_card.dart';
 
 const bottomContainerHeight = 80.0;
 const Color cardsColor = Color(0xFF1D1E33);
@@ -69,58 +71,6 @@ class _InputPageState extends State<InputPage> {
           )
         ],
       ),
-    );
-  }
-}
-
-class IconContent extends StatelessWidget {
-  const IconContent(this.icon, this.text, {super.key});
-
-  final IconData icon;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          size: 60,
-        ),
-        const SizedBox(
-          height: 15.0,
-        ),
-        Text(
-          text,
-          style: const TextStyle(
-            fontSize: 15.0,
-            color: Color(0xFF8D8E98),
-          ),
-        )
-      ],
-    );
-  }
-}
-
-class ReusableCard extends StatelessWidget {
-  const ReusableCard(this.colour, {super.key, this.cardChild});
-
-  final Color
-      colour; //final keyword added to make colour immutable i.e it can not be changed once assigned.
-
-  final Widget? cardChild;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: colour,
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: cardChild,
     );
   }
 }
